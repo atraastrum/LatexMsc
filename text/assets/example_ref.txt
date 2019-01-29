@@ -1,0 +1,19 @@
+@Misc{onnx_model_zoo,
+  title = {ONNX Model Zoo},
+  howpublished = {\url{https://github.com/onnx/models}},
+  note = {Accessed: 2019-01-02}
+}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node {asdasdasd};
+\end{tikzpicture}
+
+\caption{Architecture of IL service daemon.}\label{fig:denotations}
+\end{figure}
+
+
+
+
+

@@ -1,0 +1,15 @@
+<xs:element name="PMML">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="Header"/>
+      <xs:element ref="MiningBuildTask" minOccurs="0"/>
+      <xs:element ref="DataDictionary"/>
+      <xs:element ref="TransformationDictionary" minOccurs="0"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="MODEL-ELEMENT"/>
+      </xs:sequence>
+      <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="version" type="xs:string" use="required"/>
+  </xs:complexType>
+</xs:element>

@@ -1,0 +1,25 @@
+name: "input"
+type {
+  tensor_type {
+    elem_type: FLOAT
+    shape {
+      dim {
+        dim_value: 1
+        denotation: "DATA_BATCH"
+      }
+      dim {
+        dim_value: 3
+        denotation: "DATA_CHANNEL"
+      }
+      dim {
+        dim_value: 224
+        denotation: "DATA_FEATURE"
+      }
+      dim {
+        dim_value: 224
+        denotation: "DATA_FEATURE"
+      }
+    }
+  }
+  denotation: "IMAGE"
+}

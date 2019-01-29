@@ -1,0 +1,8 @@
+key: "Image.BitmapPixelFormat"
+value: "Rgb8"
+, 
+key: "Image.ColorSpaceGamma"
+value: "SRGB"
+, 
+key: "Image.NominalPixelRange"
+value: "Normalized_0_1"

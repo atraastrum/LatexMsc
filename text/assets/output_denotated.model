@@ -1,0 +1,13 @@
+name: "reshape0"
+type {
+  tensor_type {
+    elem_type: FLOAT
+    shape {
+      dim {
+        dim_value: 1000
+        denotation: "DATA_PROBABILITY"
+      }
+    }
+  }
+  denotation: "CATEGORICAL_PROBABILITIES"
+}

@@ -1,0 +1,134 @@
+﻿ai.onnx (default)
+Abs
+Acos
+Acosh
+Add
+And
+ArgMax
+ArgMin
+Asin
+Asinh
+Atan
+Atanh
+AveragePool
+BatchNormalization
+Cast
+Ceil
+Clip
+Compress
+Concat
+Constant
+ConstantOfShape
+Conv
+ConvTranspose
+Cos
+Cosh
+DepthToSpace
+Div
+Dropout
+Elu
+Equal
+Erf
+Exp
+Expand
+EyeLike
+Flatten
+Floor
+GRU
+Gather
+Gemm
+GlobalAveragePool
+GlobalLpPool
+GlobalMaxPool
+Greater
+HardSigmoid
+Hardmax
+Identity
+If
+InstanceNormalization
+IsNaN
+LRN
+LSTM
+LeakyRelu
+Less
+Log
+LogSoftmax
+Loop
+LpNormalization
+LpPool
+MatMul
+Max
+MaxPool
+MaxRoiPool
+MaxUnpool
+Mean
+Min
+Mul
+Multinomial
+Neg
+NonZero
+Not
+OneHot
+Or
+PRelu
+Pad
+Pow
+RNN
+RandomNormal
+RandomNormalLike
+RandomUniform
+RandomUniformLike
+Reciprocal
+ReduceL1
+ReduceL2
+ReduceLogSum
+ReduceLogSumExp
+ReduceMax
+ReduceMean
+ReduceMin
+ReduceProd
+ReduceSum
+ReduceSumSquare
+Relu
+Reshape
+Scan
+Scatter
+Selu
+Shape
+Shrink
+Sigmoid
+Sign
+Sin
+Sinh
+Size
+Slice
+Softmax
+Softplus
+Softsign
+SpaceToDepth
+Split
+Sqrt
+Squeeze
+Sub
+Sum
+Tan
+Tanh
+TfIdfVectorizer
+Tile
+TopK
+Transpose
+Unsqueeze
+Upsample
+Where
+Xor
+experimental ATen
+experimental Affine
+experimental Crop
+experimental DynamicSlice
+experimental GRUUnit
+experimental GivenTensorFill
+experimental ImageScaler
+experimental ParametricSoftplus
+experimental Scale
+experimental ScaledTanh
+experimental ThresholdedRelu

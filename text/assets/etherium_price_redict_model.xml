@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.3">
+	<Header>
+		<Application name="JPMML-SkLearn" version="1.5.8"/>
+		<Timestamp>2019-01-03T11:40:57Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension>PMMLPipeline(steps=[('data_transformer', StandardScaler(copy=True, with_mean=True, with_std=True)),
+       ('model', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None,
+         normalize=False))])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="y" optype="continuous" dataType="double"/>
+		<DataField name="x1" optype="continuous" dataType="double"/>
+	</DataDictionary>
+	<TransformationDictionary>
+		<DerivedField name="standard_scaler(x1)" optype="continuous" dataType="double">
+			<Apply function="/">
+				<Apply function="-">
+					<FieldRef field="x1"/>
+					<Constant dataType="double">2620.7572983006326</Constant>
+				</Apply>
+				<Constant dataType="double">3874.711285592038</Constant>
+			</Apply>
+		</DerivedField>
+	</TransformationDictionary>
+	<RegressionModel functionName="regression">
+		<MiningSchema>
+			<MiningField name="y" usageType="target"/>
+			<MiningField name="x1"/>
+		</MiningSchema>
+		<Output>
+			<OutputField name="predict(y)" optype="continuous" dataType="double" feature="predictedValue" isFinalResult="false"/>
+			<OutputField name="standard_scaler(predict(y))" optype="continuous" dataType="double" feature="transformedValue">
+				<Apply function="/">
+					<Apply function="-">
+						<FieldRef field="predict(y)"/>
+						<Constant dataType="double">-0.5806909030705703</Constant>
+					</Apply>
+					<Constant dataType="double">0.003634611081731621</Constant>
+				</Apply>
+			</OutputField>
+		</Output>
+		<RegressionTable intercept="-1.6963320349816126E-16">
+			<NumericPredictor name="standard_scaler(x1)" coefficient="0.9145197468684679"/>
+		</RegressionTable>
+	</RegressionModel>
+</PMML>

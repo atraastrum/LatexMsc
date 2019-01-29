@@ -1,0 +1,31 @@
+message TensorProto {
+  enum DataType {
+    UNDEFINED = 0;
+    // Basic types.
+    FLOAT = 1;   // float
+    UINT8 = 2;   // uint8_t
+    INT8 = 3;    // int8_t
+    // Other types...
+  }
+
+  // The shape of the tensor.
+  repeated int64 dims = 1;
+
+  // For very large tensors, we may want to store them in chunks, in which
+  // case the following fields will specify the segment that is stored in
+  // the current TensorProto.
+  message Segment {
+    optional int64 begin = 1;
+    optional int64 end = 2;
+  }
+  optional Segment segment = 3;
+
+  repeated float float_data = 4 [packed = true];
+
+  // For int32, uint8, int8, uint16, int16, bool, and float16 values
+  // float16 values must be bit-wise converted to an uint16_t prior
+  // to writing to the buffer.
+  // When this field is present, the data_type field MUST be
+  // INT32, INT16, INT8, UINT16, UINT8, BOOL, or FLOAT16
+  repeated int32 int32_data = 5 ;
+}

@@ -1,0 +1,53 @@
+ir_version: 3
+producer_name: "OnnxMLTools"
+producer_version: "1.2.2.0129"
+domain: "onnxml"
+model_version: 0
+doc_string: ""
+graph {
+  node {
+    input: "input"
+    output: "variable"
+    name: "LinearRegressor"
+    op_type: "LinearRegressor"
+    // Some fields are removed
+    domain: "ai.onnx.ml"
+  }
+  name: "linear_model_graph"
+  input {
+    name: "input"
+     type {
+      tensor_type {
+        elem_type: FLOAT
+        shape {
+          dim {
+            dim_param: "None"
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+  }
+  output {
+    name: "variable"
+    type {
+      tensor_type {
+        elem_type: FLOAT
+        shape {
+          dim {
+            dim_param: "None"
+          }
+          dim {
+            dim_value: 1
+          }
+        }
+      }
+    }
+  }
+}
+opset_import {
+  domain: "ai.onnx.ml"
+  version: 1
+}
