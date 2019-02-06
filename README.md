@@ -1,1 +1,1 @@
-Link to a PDF: [Thesis]{https://www.overleaf.com/read/rjxksypyvqsk} 
+Link to a PDF: [Thesis](https://www.overleaf.com/read/rjxksypyvqsk) 
