@@ -372,6 +372,10 @@ text must be identical to the text on the abstract page.
 %% above.
 %%
 \begin{abstractpage}[english]
+Currently, the most prominent model for developing intelligent applications for IoT devices is to have intelligence embedded into the application. This model is characterized by strong coupling between application logic and intelligence implementations in the code of the intelligent application. Alternatively, the intelligence can be taken out of the application and turned into a cloud service that application logic can utilize via standardized Web APIs. This model is characterized by week coupling between application logic code and intelligence implementation. Strong coupling model makes lifecycle management of intelligence difficult. To update intelligence, usually the whole application must be updated.  Cloud based week coupling model also has multiple faults like the need for constant connectivity to the central cloud or data privacy concerns. 
+
+In this thesis, local on-device week coupling model for building intelligent applications and its prototype implementation are presented.  The model is based on the concept of intelligent layer. Intelligent layer is a layer between operating system and application layer that provides intelligent services to the processes in application layer. Presented prototype implementation is called intelligence layer service.                
+\end{abstractpage}
 %  Your abstract in English. Keep the abstract short. The abstract explains your
 %  research topic, the methods you have used, and the results you obtained.  
 %  
@@ -384,7 +388,6 @@ text must be identical to the text on the abstract page.
 %  If your abstract does not contain special characters and it does not require
 %  paragraphs, you may take advantage of the abstracttext macro (see the comment
 %  below).
-\end{abstractpage}
 
 %% The text in the \thesisabstract macro is stored in the macro \abstractext, so
 %% you can use the text metadata abstract directly as follows:
