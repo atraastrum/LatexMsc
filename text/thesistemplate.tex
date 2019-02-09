@@ -1741,13 +1741,27 @@ The output tensor of the ResNet-152 model represents probability distribution ov
 The model was prepared for consumption by intelligence layer using Jupyter Notebook. In the notebook ONNX model was imported into MXNet and missing operators were added for pre- and post-precessing. After this, model was exported again to ONNX and then loaded again to denotate the input and output tensors. For that \texttt{onnx} \texttt{Python} package was used that is part of official ONNX release.   
 
 \subsection{Testing Implementation} 
-After creating an implementation and modifying the model so that it can be served by intelligence layer we tested with the standard command lines tools provided by Ubuntu Linux distribution to interface with D-Bus objects and wrote a short \texttt{Python} program that also uses the service. 
+The IL service implementation was tested by making it consume and serve the modified Resnet-152 deep neural network image classification model described in the previous section. The serving was tested by using two D-Bus debugging and monitoring applications: \texttt{busctl} and \texttt{D-Feet}. \texttt{busctl} is command line tool and \texttt{D-Feet} is graphical application.
 
-The work that we did proofs that it is possible to use ONNX as the format for delivering complete machine learning solutions. Our approach is different from other model serving solution which are usually HTTP end-points and are not part of the operating systems. Preparing such an HTTP endpoint usually requires to write computer program that transforms input and output data. In our approach model are complete and all the complexity for IO transformation and API serving is hidden behind intelligence layer as long as creator of a model denotates the input and output tensors correctly.        
+Figure~N shows a DoPrediction method call of a “” interface owned by “” object which is part of “” service.  The method call takes string as input and produced string as output. The input string points to the resource that in the case of Resnet is a path to the JPG image of a cat. The output string contains predicted class. As can be seen from the Figure, intelligence layer returns correct result. 
+
+D-Feet allows to list and introspect D-Bus services via the graphical user interface. It can also be used to call methods of D-Bus objects and measure the time of a method call. Figure~N shows the invocation of a DoPrediction method on a Resnet-152v2 D-Bus object with the same image from the previous example. As can be seen from Figure~N the method call time is  N seconds.    
+
+The tests were executed on a commodity computing hardware. The testing machine had the following specs
+Ubuntu
+Intel(R) Core(TM) i5-6600K CPU @ 3.50GHz, 3501 Mhz, 4 Core(s) 
+16 GB RAM
+
+ 
+The test results proofs the feasibility of using ONNX format for provisioning machine learning model to device and serving them locally. Intelligent layer service is different from other model serving solution which are usually HTTP end-points and deployed in central cloud. 
+
+Preparing ML model for such cloud-oriented ML model serving application usually requires to write computer program that transforms input and output data. In our approach model are complete and all the complexity for IO transformation and API serving is hidden behind intelligence layer as long as creator of a model denotates the input and output tensors correctly.
+   
  
 \subsection{Feature Work}   
 \textbf{TD}\\   
-\textbf{Below are just notes for myself.}     \\            
+\textbf{Below are just notes for myself.}     \\
+Port to IoT hardware.             
 Do a more complete comparison between PMML and ONNX.      
 Implment more ideas from Intelligence Layer related to lifecycle managment of machine learning models.
 Port more ONNX models as intelligence layer services 
