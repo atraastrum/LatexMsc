@@ -1695,6 +1695,16 @@ On the other hand if we look at Table~\ref{tab:pmml_sup_models} presenting model
 \subsection{Experimental setup and model preparation}     
 To test the implementation an ONNX model was needed. The place where one can find ready made pre-trained ONNX models is called ONNX Model Zoo~\cite{onnx_model_zoo}. It is a GitHub repository with the models that have been developed with some framework, like MXNet, and then exported to ONNX. For each provided model there is also a description available, describing what framework was used to create the model, where the data that was used for training come from and how pre-process and post-process the raw data for model execution.
 
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node at (-4,0) {\lstinputlisting{assets/input_denotated.model}};
+\node at (4,0)  {\lstinputlisting{assets/input_denotated_meta.model}};
+\end{tikzpicture}
+
+\caption{Textual representation of input denotation for ResNet model's input. Left side is snippet that represents input of the graph. On the right side the key-value pairs of the \texttt{meta\_data} field are presented related to \texttt{IMAGE} type.}\label{fig:input_denotation}
+\end{figure}
+
 Version 2 of the ResNet~\cite{he2016deep} image classification neural network model is used for testing IL service prototype implementation. The model takes image as input and outputs the class of the major object in the image. The model was trained on the ImageNet dataset which contains images from 1000 classes. The largest available model Resnet-152 is used. It is approximately 220 MB in size and is most accurate among other Resnet models with fewer layers. 
 
 Image classification is an important use case for IoT. One can image camera monitoring the production line for faulty products taking a snapshop image of a product and requesting a prediction from intelligence layer service to classify the product as good or bad.        
@@ -1719,18 +1729,6 @@ The denotation for type and dimensions of input tensor of the modified ResNet mo
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-\node at (-4,0) {\lstinputlisting{assets/input_denotated.model}};
-\node at (4,0)  {\lstinputlisting{assets/input_denotated_meta.model}};
-\end{tikzpicture}
-
-\caption{Textual representation of input denotation for ResNet model's input. Left side is snippet that represents input of the graph. On the right side the key-value pairs of the \texttt{meta\_data} field are presented related to \texttt{IMAGE} type.}\label{fig:input_denotation}
-\end{figure}
-
-The output tensor of the ResNet-152 model represents probability distribution over $1000$ different categories. ONNX doesn't have denotation to represent tensor with such semantic meaning. For that reason author had to invent new denotation type. It was named  \texttt{CATEGORICAL\_PROBABILITY}. To denotate some tensor as \texttt{CATEGORICAL\_PROBABILITY} it must set its denotation filed to \texttt{CATEGORICAL\_PROBABILITY} and add all the categories as map from category identifiers to category names in \texttt{meta\_data} of the \texttt{ModelProto} message. Textual representation of output tensor is presented in Figure~\ref{fig:output_denotation}        
-
-\begin{figure}[h!]
-\centering
-\begin{tikzpicture}
 \node at (-4,-2) {\lstinputlisting{assets/output_denotated.model}};
 \node at (3,2)  {\lstinputlisting{assets/output_denotated_meta.model}};
 \end{tikzpicture}
@@ -1738,26 +1736,38 @@ The output tensor of the ResNet-152 model represents probability distribution ov
 \caption{Textual representation of output denotation for ResNet model's output. Left side is snippet that represents input of the graph. On the right side the key-value pairs of the \texttt{meta\_data} field are presented related to \texttt{CATEGORICAL\_PROBABILITY} type.}\label{fig:output_denotation}
 \end{figure}
 
+The output tensor of the ResNet-152 model represents probability distribution over $1000$ different categories. ONNX doesn't have denotation to represent tensor with such semantic meaning. For that reason author had to invent new denotation type. It was named  \texttt{CATEGORICAL\_PROBABILITY}. To denotate some tensor as \texttt{CATEGORICAL\_PROBABILITY} it must set its denotation filed to \texttt{CATEGORICAL\_PROBABILITY} and add all the categories as map from category identifiers to category names in \texttt{meta\_data} of the \texttt{ModelProto} message. Textual representation of output tensor is presented in Figure~\ref{fig:output_denotation}        
+
 The model was prepared for consumption by intelligence layer using Jupyter Notebook. In the notebook ONNX model was imported into MXNet and missing operators were added for pre- and post-precessing. After this, model was exported again to ONNX and then loaded again to denotate the input and output tensors. For that \texttt{onnx} \texttt{Python} package was used that is part of official ONNX release.   
 
 \subsection{Testing Implementation} 
 The IL service implementation was tested by making it consume and serve the modified Resnet-152 deep neural network image classification model described in the previous section. The serving was tested by using two D-Bus debugging and monitoring applications: \texttt{busctl} and \texttt{D-Feet}. \texttt{busctl} is command line tool and \texttt{D-Feet} is graphical application.
 
-Figure~N shows a DoPrediction method call of a “” interface owned by “” object which is part of “” service.  The method call takes string as input and produced string as output. The input string points to the resource that in the case of Resnet is a path to the JPG image of a cat. The output string contains predicted class. As can be seen from the Figure, intelligence layer returns correct result. 
+Figure~\ref{fig:busctl} shows a \texttt{DoPrediction} method call of a\\ \texttt{fi.ericsson.nomadiclab.IntelligenceLayer.Classifier} interface owned by \\ \texttt{/ericsson/nomadiclab/intelligence\_layer/resnet152v\_copy1} object which is part of \texttt{fi.ericsson.nomadiclab.IntelligenceLayer} service.  The method call takes string as input and produced string as output. The input string points to the resource that in the case of Resnet is a path to the JPG image of a cat. The output string contains predicted class. As can be seen from the Figure, intelligence layer returns correct result. 
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (bs) at (0,0)
+    {\includegraphics[width=1.0\textwidth]{../assets/images/busctl.png}};
+\end{tikzpicture}
+\caption{Snippet from command line terminal showing the use of \texttt{busctl} and the picture of cat that for used for testing.}\label{fig:busctl}
+\end{figure}
 
 D-Feet allows to list and introspect D-Bus services via the graphical user interface. It can also be used to call methods of D-Bus objects and measure the time of a method call. Figure~N shows the invocation of a DoPrediction method on a Resnet-152v2 D-Bus object with the same image from the previous example. As can be seen from Figure~N the method call time is  N seconds.    
 
-The tests were executed on a commodity computing hardware. The testing machine had the following specs
-Ubuntu
-Intel(R) Core(TM) i5-6600K CPU @ 3.50GHz, 3501 Mhz, 4 Core(s) 
+The tests were executed on a commodity computing hardware. The testing machine had the following specifications:
+
+\begin{center}
+Ubuntu \\
+Intel(R) Core(TM) i5-6600K CPU @ 3.50GHz, 3501 Mhz, 4 Core(s) \\ 
 16 GB RAM
-
+\end{center}
  
-The test results proofs the feasibility of using ONNX format for provisioning machine learning model to device and serving them locally. Intelligent layer service is different from other model serving solution which are usually HTTP end-points and deployed in central cloud. 
+The test results proof the feasibility of using ONNX format for provisioning machine learning model to device and serving them locally. Intelligent layer service is different from other model serving solution which are usually HTTP end-points and deployed in central cloud. 
 
-Preparing ML model for such cloud-oriented ML model serving application usually requires to write computer program that transforms input and output data. In our approach model are complete and all the complexity for IO transformation and API serving is hidden behind intelligence layer as long as creator of a model denotates the input and output tensors correctly.
-   
- 
+Preparing ML model for such cloud-oriented ML model serving application usually requires to write a program with the code to load a ML model, and code to transform input and output data. In the approach proposed in this thesis, models are complete and all the complexity for IO transformation and API serving is hidden behind intelligence layer as long as creator of a model denotates the input and output tensors correctly.
+
 \subsection{Feature Work}   
 \textbf{TD}\\   
 \textbf{Below are just notes for myself.}     \\
