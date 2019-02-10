@@ -374,7 +374,7 @@ text must be identical to the text on the abstract page.
 \begin{abstractpage}[english]
 Currently, the most prominent model for developing intelligent applications for IoT devices is to have intelligence embedded into the application. This model is characterized by strong coupling between application logic and intelligence implementations in the code of the intelligent application. Alternatively, the intelligence can be taken out of the application and turned into a cloud service that application logic can utilize via standardized Web APIs. This model is characterized by week coupling between application logic code and intelligence implementation. Strong coupling model makes lifecycle management of intelligence difficult. To update intelligence, usually the whole application must be updated.  Cloud based week coupling model also has multiple faults like the need for constant connectivity to the central cloud or data privacy concerns. 
 
-In this thesis, local on-device week coupling model for building intelligent applications and its prototype implementation are presented.  The model is based on the concept of intelligent layer. Intelligent layer is a layer between operating system and application layer that provides intelligent services to the processes in application layer. Presented prototype implementation is called intelligence layer service.                
+In this thesis, local on-device week coupling model for building intelligent applications and its prototype implementation are presented.  The model is based on the concept of intelligent layer. Intelligent layer is a layer between operating system and application layer that provides intelligent services to the processes in application layer. Presented prototype implementation is called intelligence layer service. It is able to serve limited type of machine learning models presented with Open Neural Network Exchange (ONNX) format.                
 \end{abstractpage}
 %  Your abstract in English. Keep the abstract short. The abstract explains your
 %  research topic, the methods you have used, and the results you obtained.  
@@ -1685,15 +1685,12 @@ For the D-Bus object's property requests or method calls that do not require any
 
 
 \section{Results and Conclusions}\label{chaper:results}
-It is clear that ONNX at the moment is an appropriate and popular format for representing neural network machine learning models intended for inference purposes. Many state-of-the-art deep learning frameworks support ONNX to some extent and new compilers and runtime capable of executing ONNX NN models on variety of compute hardware, ranging from general purpose hardware like CPUs and GPUs to special purpose like Intel's Nervana~\cite{cyphers2018intel} chip designed to accelerate NN computations, emerge all the time. The list, available at ONNX's Web-page~\cite{onnx_tools}, of frameworks, run-times, compilers that ONNX team claims to support ONNX format is getting updated frequently. One recent development is the release of ONNX Runtime as an open source project by Microsoft. ONNX Runtime is a software library for executing ONNX models. In the Microsoft's blog post~\cite{onnx_runtime} accompanying the release of the project it is claimed that ONNX Runtime has full support for ONNX version 1.2 and later, including \texttt{ai.onnx.ml} set of operators.  
-ONNX Runtime is first runtime to support both sets of operators \texttt{ai.onnx} and \texttt{ai.onnx.ml}. ONNX Runtime would have been better solution compared to nGraph as an model executor for the implementation that was introduced in Chapter~\ref{chapter:implementation}. But the ONNX Runtime was released after the decision has been made to use nGraph for the implementation and for that reason it was decided to continue with nGraph.
+Previous chapter presented the implementation details of IL service. In this chapter, the test results and final conclusions of using IL service prototype implementation to serve image classification ONNX model are presented. 
 
-Comaparing the lists of available operators from \texttt{ai.onnx.ml} domain in Appendix to the list of models in Table~\ref{tab:common_model_iot} we can see lists have only four common models: linear regression, SVM, decision trees and bagging. Bagging can be considered and ensemble of trees. Most of the other operators of \texttt{ai.onnx.ml} domain are for data pre-processing and data post-processing. On the  other hand it must be kept in mind that, in theory, the operators from different domains can be mixed, if model executor supports them both. Using operators from the default domain \texttt{ai.onnx}, it is possible to express any computations that do not require back-loops. So it can be hypothesized with high probability that most of the operators from Table~\ref{tab:common_model_iot} are implementable in ONNX, for example if we are not considering training, PCA from section~\ref{sec:ml_in_iot} is just a matrix multiplication operation. Even if some operation is not implementable with standard set of operators, ONNX can be extended with custom domains of operators and then it will depend on the executor what operators it can and can't run. 
-
-On the other hand if we look at Table~\ref{tab:pmml_sup_models} presenting models that are supported by PMML we can see that it is more compatible with Table~\ref{tab:common_model_iot}. One might think that for that reason PMML is better format for representing machine learning models. But it must be taken into account that PMML has been around since 1999, when version 1 of the format was released, and until these days PMML is not widely adopted especially from the tools used to create and execute neural networks. The protocol buffer format is superior to XML in terms of size of serialized models and parsing speed. For that reasons, we think that ONNX is a better choice for representing also classical machine learning models and not just neural networks. The author of these thesis do realize that more systematic comparison of PMML and ONNX must be conducted in order to decide with format is better but it would necessary take more space and resource that are not available and hence we leave it for feature work. Right now it looks clearly that industry tends to prefer ONNX over PMML with big corporation like Microsoft and Facebook driving development of ONNX.
+First the test ONNX model is described then tools and hardware used for testing the IL service are presented. The chapter ends with conclusions and feature work sections.       
 
 \subsection{Experimental setup and model preparation}     
-To test the implementation an ONNX model was needed. The place where one can find ready made pre-trained ONNX models is called ONNX Model Zoo~\cite{onnx_model_zoo}. It is a GitHub repository with the models that have been developed with some framework, like MXNet, and then exported to ONNX. For each provided model there is also a description available, describing what framework was used to create the model, where the data that was used for training come from and how pre-process and post-process the raw data for model execution.
+To test the implementation an ONNX model was needed. The place where one can find ready made pre-trained ONNX models is called ONNX Model Zoo~\cite{onnx_model_zoo}. It is a GitHub repository with the models that have been developed with some framework, like MXNet, and then exported to ONNX format. Each model from the ONNX Model Zoo has a descriptive Web-page. The Web-page contains information about what framework was used to create the model, where the data that was used for training came from, and how pre-process and post-process the raw data required and produced by model execution process.
 
 \begin{figure}[h!]
 \centering
@@ -1702,29 +1699,29 @@ To test the implementation an ONNX model was needed. The place where one can fin
 \node at (4,0)  {\lstinputlisting{assets/input_denotated_meta.model}};
 \end{tikzpicture}
 
-\caption{Textual representation of input denotation for ResNet model's input. Left side is snippet that represents input of the graph. On the right side the key-value pairs of the \texttt{meta\_data} field are presented related to \texttt{IMAGE} type.}\label{fig:input_denotation}
+\caption{Textual representation of input denotation for ResNet model's input. Left side is snippet that represents input of the graph. On the right side the key-value pairs of the \texttt{ModelProto} \texttt{meta\_data} field are presented related to the \texttt{IMAGE} type.}\label{fig:input_denotation}
 \end{figure}
 
-Version 2 of the ResNet~\cite{he2016deep} image classification neural network model is used for testing IL service prototype implementation. The model takes image as input and outputs the class of the major object in the image. The model was trained on the ImageNet dataset which contains images from 1000 classes. The largest available model Resnet-152 is used. It is approximately 220 MB in size and is most accurate among other Resnet models with fewer layers. 
+Version 2 of the ResNet~\cite{he2016deep} image classification neural network model was selected for testing IL service prototype implementation. The model takes image as input and outputs the class of the major object in the image. The model was trained on the ImageNet dataset which contains images from 1000 classes. The largest available model Resnet-152 was used. It is approximately 220 MB in size and is most accurate among other Resnet models with fewer layers. 
 
 Image classification is an important use case for IoT. One can image camera monitoring the production line for faulty products taking a snapshop image of a product and requesting a prediction from intelligence layer service to classify the product as good or bad.        
 
-The Resnet-152 model couldn't be used as it was provided in ModelZoo. It was assumed that pre-processing and post-processing procedures are done in code by the user who import the model in his or hers code. Model was just expecting an $1 \times 3 \times 224 \times 224$ dimensional tensor as input and produced $1000$ dimensional tensor as output.
+The Resnet-152 model couldn't be used as it was provided in ModelZoo. It was assumed that pre-processing and post-processing procedures are done in code by the user who imports the model in his or hers code. Model was just expecting an $1 \times 3 \times 224 \times 224$ dimensional tensor as input and produced $1000$ dimensional tensor as output.
 
-Input tensor should contain data of color image and output tensor score for each class. It was assumed that user of ResNet ONNX model will know enough information about the model to load an image in some specific format, for example PNG, extract pixel values for each channel using some libraries and normalize pixel values to range $[0,1]$. 
+According to Resnet model description, input tensor should contain data of a color image and output tensor scores for each class. It is assumed that user of ResNet ONNX model will know enough information about the model to load an image in some specific format, for example PNG, extract pixel values for each channel using some libraries and normalize pixel values to range $[0,1]$. 
 
-Same assumption were made for the output. It was users job to download the file with all the names of categories and connect result with categories. 
+Similar assumptions were made for the output. It was users job to download the file with all the names of categories and connect result output tensor with categories. 
 
-In order to fix these issues the author had to add computational pre- and post-processing nodes to the model. For preprocessing nodes to do data standardization were added. For post-processing node to convert scores to probabilities with softmax function was added.
+In order to fix these issues, the author had to add computational pre- and post-processing nodes to the model. Preprocessing nodes to do data standardization were added. Post-processing node to convert scores to probabilities with softmax function was added.
 
-In order for intelligence layer to know that model expects an image prepared in a particular way author had to denotate input tensor and all the dimension of the input tensor. Denotating dimensions was not necessary because prototype implementation doesn't support them yet, but it was done for completeness. Denotating means giving semantic description to tensors, so that intelligence layer service or any other application that consumes ONNX model can understand the meaning of a tensor and use appropriate loader. The ONNX has an experimental proposal for detonating tensors that is not part of the official format yet~\cite{onnx_denotations}. For that purpose, \texttt{TypeProto} message has \texttt{denotation} field that is a string. Three types of denotation are available: \texttt{TENSOR}, \texttt{IMAGE}, \texttt{AUDIO}, \texttt{TEXT}. Out of these four, only \texttt{TENSOR} and \texttt{IMAGE} have a somewhat complete definitions. Tensor types do not require denotations. If denotation is missing then tensor denotation type is assumed.
+In order for intelligence layer to know that model expects an image prepared in a particular way author had to denotate input tensor and all the dimensions of the input tensor. Denotating dimensions was not necessary because prototype implementation doesn't support them yet, but it was done for completeness. Denotating means giving semantic description to tensors, so that intelligence layer service or any other application that consumes ONNX model can understand the meaning of a tensor and use appropriate loader. The ONNX has an experimental proposal for detonating tensors that is not part of the official format yet~\cite{onnx_denotations}. For that purpose, \texttt{TypeProto} message has \texttt{denotation} field that is a string. Three types of denotation are available: \texttt{TENSOR}, \texttt{IMAGE}, \texttt{AUDIO}, \texttt{TEXT}. Out of these four, only \texttt{TENSOR} and \texttt{IMAGE} have a somewhat complete definitions. Tensor types do not require denotations. If denotation is missing then tensor denotation type is assumed.
 
-\texttt{TypeProto} is wrapper message around one of three possible types: Tensor, Sequence or Map. The type used is indicated by \texttt{type} field of \texttt{TypeProto}. For neural networks only Tensor type can be used. Tensor type and denotaion type are two different things and should not mixed.     
+\texttt{TypeProto} is wrapper message around one of three possible types: Tensor, Sequence or Map. The type used is indicated by \texttt{type} field of \texttt{TypeProto}. For neural networks only Tensor type can be used. Tensor type and denotation type are two different things and should not mixed.     
 
-For tensor type it is also possible to denotate dimensions. \texttt{Tensor} protocol buffer message has shape field of type \texttt{TensorShapeProto} that is a array of \texttt{Dimension} messages that have \texttt{denotation} field. The definition for dimension denotations are not well formalized yet and only three denotation types are presented in ONNX proposal.  
+For tensor type it is also possible to denotate dimensions. \texttt{Tensor} protocol buffer message has shape field of type \texttt{TensorShapeProto} that is a array of \texttt{Dimension} messages that have \texttt{denotation} field. The definition for dimension denotations are not well formalized yet and only three denotation types are presented in ONNX proposal: \texttt{DATA\_BATCH}, \texttt{DATA\_CHANNEL}, \texttt{DATA\_FEATURE}.  
 
 
-The denotation for type and dimensions of input tensor of the modified ResNet model are provided in Figure~\ref{fig:input_denotation}. As can be seen, model expects an \texttt{IMAGE} as an input. The format of the image is specified in the right side of Figure~\ref{fig:input_denotation}. Using this information intelligence layer will know that an image it suppose to pass to model has a specific pixel format, color space and that it should normalize pixel values to range $[0, 1]$ by scaling data from each color channel by $255$. Dimensions also denotated, but current version for intelligence layer disregards them.    
+The denotation for type and dimensions of input tensor of the modified ResNet model are provided in Figure~\ref{fig:input_denotation}. As can be seen, model expects an \texttt{IMAGE} as an input. The format of the image is specified on the right side of Figure~\ref{fig:input_denotation}. Using this information intelligence layer will know that an image it suppose to pass to model has a specific pixel format, color space and that it should normalize pixel values to range $[0, 1]$ by scaling data from each color channel by $255$. Dimensions also denotated, but current version for intelligence layer disregards them.    
 
 \begin{figure}[h!]
 \centering
@@ -1733,17 +1730,17 @@ The denotation for type and dimensions of input tensor of the modified ResNet mo
 \node at (3,2)  {\lstinputlisting{assets/output_denotated_meta.model}};
 \end{tikzpicture}
 
-\caption{Textual representation of output denotation for ResNet model's output. Left side is snippet that represents input of the graph. On the right side the key-value pairs of the \texttt{meta\_data} field are presented related to \texttt{CATEGORICAL\_PROBABILITY} type.}\label{fig:output_denotation}
+\caption{Textual representation of output denotation for ResNet model's output. Left side is snippet that represents input of the graph. On the right side the key-value pairs in the \texttt{meta\_data} field are presented related to \texttt{CATEGORICAL\_PROBABILITY} type.}\label{fig:output_denotation}
 \end{figure}
 
-The output tensor of the ResNet-152 model represents probability distribution over $1000$ different categories. ONNX doesn't have denotation to represent tensor with such semantic meaning. For that reason author had to invent new denotation type. It was named  \texttt{CATEGORICAL\_PROBABILITY}. To denotate some tensor as \texttt{CATEGORICAL\_PROBABILITY} it must set its denotation filed to \texttt{CATEGORICAL\_PROBABILITY} and add all the categories as map from category identifiers to category names in \texttt{meta\_data} of the \texttt{ModelProto} message. Textual representation of output tensor is presented in Figure~\ref{fig:output_denotation}        
+The output tensor of the ResNet model represents probability distribution over $1000$ different categories. ONNX doesn't have denotation to represent tensor with such semantic meaning. For that reason author had to invent new denotation type. It was named  \texttt{CATEGORICAL\_PROBABILITY}. To denotate a tensor as \texttt{CATEGORICAL\_PROBABILITY} one must set its denotation filed to \texttt{CATEGORICAL\_PROBABILITY} and add all the categories as map from category identifiers to category names in \texttt{meta\_data} of the \texttt{ModelProto} message. Textual representation of output tensor is presented in Figure~\ref{fig:output_denotation}        
 
 The model was prepared for consumption by intelligence layer using Jupyter Notebook. In the notebook ONNX model was imported into MXNet and missing operators were added for pre- and post-precessing. After this, model was exported again to ONNX and then loaded again to denotate the input and output tensors. For that \texttt{onnx} \texttt{Python} package was used that is part of official ONNX release.   
 
 \subsection{Testing Implementation} 
 The IL service implementation was tested by making it consume and serve the modified Resnet-152 deep neural network image classification model described in the previous section. The serving was tested by using two D-Bus debugging and monitoring applications: \texttt{busctl} and \texttt{D-Feet}. \texttt{busctl} is command line tool and \texttt{D-Feet} is graphical application.
 
-Figure~\ref{fig:busctl} shows a \texttt{DoPrediction} method call of a\\ \texttt{fi.ericsson.nomadiclab.IntelligenceLayer.Classifier} interface owned by \\ \texttt{/ericsson/nomadiclab/intelligence\_layer/resnet152v\_copy1} object which is part of \texttt{fi.ericsson.nomadiclab.IntelligenceLayer} service.  The method call takes string as input and produced string as output. The input string points to the resource that in the case of Resnet is a path to the JPG image of a cat. The output string contains predicted class. As can be seen from the Figure, intelligence layer returns correct result. 
+Figure~\ref{fig:busctl} shows a \texttt{DoPrediction} method call of a\\ \texttt{fi.ericsson.nomadiclab.IntelligenceLayer.Classifier} interface owned by \\ \texttt{/ericsson/nomadiclab/intelligence\_layer/resnet152v\_copy1} object which is part of \texttt{fi.ericsson.nomadiclab.IntelligenceLayer} service.  The method call takes string as input and produces string as output. The input string points to the resource that in the case of Resnet is a path to the JPG image of a cat. The output string contains predicted class. As can be seen from the Figure, intelligence layer returns correct result. 
 
 \begin{figure}[h!]
 \centering
@@ -1751,10 +1748,10 @@ Figure~\ref{fig:busctl} shows a \texttt{DoPrediction} method call of a\\ \texttt
 \node (bs) at (0,0)
     {\includegraphics[width=1.0\textwidth]{../assets/images/busctl.png}};
 \end{tikzpicture}
-\caption{Snippet from command line terminal showing the use of \texttt{busctl} and the picture of cat that for used for testing.}\label{fig:busctl}
+\caption{Snippet from command line terminal showing the use of \texttt{busctl} and the picture of cat that was used for testing.}\label{fig:busctl}
 \end{figure}
 
-D-Feet allows to list and introspect D-Bus services via the graphical user interface. It can also be used to call methods of D-Bus objects and measure the time of a method call. Figure~N shows the invocation of a DoPrediction method on a Resnet-152v2 D-Bus object with the same image from the previous example. As can be seen from Figure~N the method call time is  N seconds.    
+D-Feet allows to list and introspect D-Bus services via the graphical user interface. It can also be used to call methods of D-Bus objects and measure the time of a method call. Figure~\ref{fig:dfeet} shows the invocation of a DoPrediction method on a Resnet-152v2 D-Bus object with the same image from the previous example. As can be seen from Figure~\ref{fig:dfeet} the method call time is $0.6$ seconds.    
 
 The tests were executed on a commodity computing hardware. The testing machine had the following specifications:
 
@@ -1764,30 +1761,57 @@ Intel(R) Core(TM) i5-6600K CPU @ 3.50GHz, 3501 Mhz, 4 Core(s) \\
 16 GB RAM
 \end{center}
  
-The test results proof the feasibility of using ONNX format for provisioning machine learning model to device and serving them locally. Intelligent layer service is different from other model serving solution which are usually HTTP end-points and deployed in central cloud. 
+The test results proof the feasibility of using ONNX format for provisioning machine learning models to device and serving them locally. Intelligent layer service is different from other model serving solution which are usually HTTP end-points and deployed in central cloud. 
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (bs) at (0,0)
+    {\includegraphics[width=1.0\textwidth]{../assets/images/dfeet1.png}};
+\end{tikzpicture}
+\caption{Using IL service with D-Feet.}\label{fig:dfeet}
+\end{figure}
+
 
 Preparing ML model for such cloud-oriented ML model serving application usually requires to write a program with the code to load a ML model, and code to transform input and output data. In the approach proposed in this thesis, models are complete and all the complexity for IO transformation and API serving is hidden behind intelligence layer as long as creator of a model denotates the input and output tensors correctly.
 
-\subsection{Feature Work}   
-\textbf{TD}\\   
-\textbf{Below are just notes for myself.}     \\
-Port to IoT hardware.             
-Do a more complete comparison between PMML and ONNX.      
-Implment more ideas from Intelligence Layer related to lifecycle managment of machine learning models.
-Port more ONNX models as intelligence layer services 
-%\section{Results and Analysis}
-\\
-%\section{Conclusions}
-Future work
-Do a systematic research of how well ONNX is supported. 
-Extend to support ai.onnx.ml 
-To service discovery for example notification for clients when new models are appear in the special directory.
-Life cycle management.    
-https://azure.microsoft.com/en-us/blog/onnx-runtime-is-now-open-source/
-While writing these thesis a ONNX runtime emerged that would have been perfect replacement of nGraph because it also support ONNX-ML profile. This shows how rapid is the development of these are of machine learning is.
+\subsection{Conclusions}
+It is clear that ONNX at the moment is an appropriate and popular format for representing neural network machine learning models intended for inference purposes. Many state-of-the-art deep learning frameworks support ONNX to some extent and new compilers and runtimes capable of executing ONNX NN models on variety of compute hardware, ranging from general purpose hardware like CPUs and GPUs to special purpose like Intel's Nervana~\cite{cyphers2018intel} chip designed to accelerate NN computations, emerge all the time.
 
-Increasing performance of IL by distribution taks further on discoverer and executors.
-D-Bus supports only double-precision types. Extending it with single-precision is important.      
+The list, available at ONNX's Web-page~\cite{onnx_tools}, of frameworks, run-times, compilers that ONNX team claims to support ONNX format is getting updated frequently. One recent development is the release of ONNX Runtime as an open source project by Microsoft. ONNX Runtime is a software library for executing ONNX models. In the Microsoft's blog post~\cite{onnx_runtime} accompanying the release of the project it is claimed that ONNX Runtime has full support for ONNX version 1.2 and later, including \texttt{ai.onnx.ml} set of operators.
+ONNX Runtime is first runtime to support both sets of operators \texttt{ai.onnx} and \texttt{ai.onnx.ml}. 
+
+ONNX Runtime would have been better solution compared to nGraph as a model executor for the implementation that was presented in Chapter~\ref{chapter:implementation}. But the ONNX Runtime was released after the decision has been made to use nGraph for the implementation and for that reason it was decided to continue with nGraph.
+
+Comparing the lists of available operators from \texttt{ai.onnx.ml} domain in Appendix~\ref{appendix:operatorlist} to the list of models in Table~\ref{tab:common_model_iot} we can see lists have only four common models: linear regression, SVM, decision trees and bagging. Bagging can be considered and ensemble of trees. Most of the other operators of \texttt{ai.onnx.ml} domain are for data pre-processing and data post-processing. On the  other hand it must be kept in mind that, in theory, the operators from different domains can be mixed, if model executor supports them both. Using operators from the default domain \texttt{ai.onnx}, it is possible to express any computations that do not require back-loops. So it can be hypothesized with high probability that most of the operators from Table~\ref{tab:common_model_iot} are implementable in ONNX, for example if we are not considering training, PCA from section~\ref{sec:ml_in_iot} is just a matrix multiplication operation. Even if some operation is not implementable with standard set of operators, ONNX can be extended with custom domains of operators and then it will depend on the executor what operators it can and can't run. 
+
+On the other hand if we look at Table~\ref{tab:pmml_sup_models} presenting models that are supported by PMML we can see that it is more compatible with Table~\ref{tab:common_model_iot}. One might think that for that reason PMML is better format for representing machine learning models. But it must be taken into account that PMML has been around since 1999, when version 1 of the format was released, and until these days PMML is not widely adopted especially from the tools used to create and execute neural networks. The protocol buffer format used for ONNX is superior to XML used in PMML in terms of size of serialized models and parsing speed. For that reasons, the author thinks that ONNX is a better choice for representing also classical machine learning models and not just neural networks. 
+
+The author of these thesis do realize that more systematic comparison of PMML and ONNX must be conducted in order to decide with format is better but it would necessary take more space and resource that are not available and hence this study is left for feature work. Right now it looks clearly that industry tends to prefer ONNX over PMML with big corporation like Microsoft and Facebook driving development of ONNX.
+
+\subsection{Feature Work}   
+There are many things that can be improved in the prototype. Adding more denotation types and testing more ONNX models. Allowing to use different executors to execute  ONNX models. Right now IL service uses nGraph and only supports neural networks models. Next logical step would be to add ONNX Runtime support. 
+
+IL service was not tested on real IoT hardware. One good candidate for testing is Intel's IoT board with Intel atom processor. 
+
+%\textbf{TD}\\   
+%\textbf{Below are just notes for myself.}     \\
+%Port to IoT hardware.             
+%Do a more complete comparison between PMML and ONNX.      
+%Implment more ideas from Intelligence Layer related to lifecycle managment of machine learning models.
+%Port more ONNX models as intelligence layer services 
+%\section{Results and Analysis}
+%\section{Conclusions}
+%Future work
+%Do a systematic research of how well ONNX is supported. 
+%Extend to support ai.onnx.ml 
+%To service discovery for example notification for clients when new models are appear in the special directory.
+%Life cycle management.    
+%https://azure.microsoft.com/en-us/blog/onnx-runtime-is-now-open-source/
+%While writing these thesis a ONNX runtime emerged that would have been perfect replacement of nGraph because it also support ONNX-ML profile. This shows how rapid is the development of these are of machine learning is.
+
+%Increasing performance of IL by distribution taks further on discoverer and executors.
+%D-Bus supports only double-precision types. Extending it with single-precision is important.      
 %\section{Yhteenveto}
 
 
@@ -1805,7 +1829,7 @@ D-Bus supports only double-precision types. Extending it with single-precision i
 \clearpage
 \thesisappendix
 \section{Lists of ONNX Operators\label{appendix:operatorlist}}
-In this appendix the list of ONNX operators from both standard operator sets are provided. First listing has the operators from \texttt{ai.onnx} set. Second listing  presents operators from \texttt{ai.onnx.ml} set.  
+In this appendix the list of ONNX operators from both standard and classical operator sets are provided. First listing has the operators from \texttt{ai.onnx} set. Second listing  shows operators from \texttt{ai.onnx.ml} set.  
 \lstinputlisting[language=protobuf3,style=protobuf]{assets/aionnx.txt}
 \lstinputlisting[language=protobuf3,style=protobuf]{assets/aionnxml.txt}
 \end{document}
