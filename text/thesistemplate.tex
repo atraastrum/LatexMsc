@@ -599,7 +599,7 @@ It is not easy to define machine intelligence precisely because definition of in
 \textbf{Intelligence} is natural or acquired ability to understand.
 \end{center}
 
-If in front of the definition above we add word machine, then it is better to replace word natural with intrinsic. There is nothing natural in computer program or current state-of-the-art electronic computing hardware created by humans. Natural things are created by nature. Things created by humans are artificial.    
+If in front of the definition above word machine is added, then it is better to replace word natural with intrinsic. There is nothing natural in computer program or current state-of-the-art electronic computing hardware created by humans. Natural things are created by nature. Things created by humans are artificial.    
 
 Living beings act based on their reflexes and understanding to survive, spread and achieve some objectives and machines can be programmed to do the same. Based on presented chain of reasoning the machine intelligence can be defined as:
 
@@ -607,7 +607,7 @@ Living beings act based on their reflexes and understanding to survive, spread a
 \textbf{Machine Intelligence} is an intrinsic or acquired ability of a computing machine or a computer program to understand and carry out actions to achieve objectives and goals of its creator.
 \end{center}
 
-In our work we consider creator to be a person or a group of people that designed and implemented machine intelligence. The intrinsic ability might be represented by a model or function suitable for specific problem. The process of acquiring ability to understand is learning. Learning might represent fitting a curve to available training data or finding model parameters. The learned model can be used to perform an intelligent task. 
+In this work creator is considered to be a person or a group of people that designed and implemented machine intelligence. The intrinsic ability might be represented by a model or function suitable for specific problem. The process of acquiring ability to understand is learning. Learning might represent fitting a curve to available training data or finding model parameters. The learned model can be used to perform an intelligent task. 
 
 The notion of intelligent agent is fundamental and useful mental tool for analysing and designing systems with machine intelligence capability~\cite{AIMA}. Next subsection explains the notion.    
 
@@ -660,22 +660,22 @@ Hypothesis space.
 Loss function.
 \end{enumerate}
 
-Data points are raw data precepted by an agent utilizing its sensors. We denote the set containing all possible values that can be assumed by a data point $\mathbf{z}$ by letter $\mathcal{Z}$. The labels are answers to questions or predictions that we want our model to output, domain of all labels $\mathbf{y}$, sometimes word target is used instead of label, is denoted by $\mathcal{Y}$. Most often data points are preprocessed before they are given to the model. As result of this preprocessing, data point is transformed into a vector of features $\mathbf{x}$, extracted from the data point. We assign symbol $\mathcal{X}$ to a space of all the possible feature vectors.~\cite{Jung2018} Using the mathematical notation, we can represent the mapping for data points to labels with the following mapping:
+Data points are raw data precepted by an agent utilizing its sensors.The set containing all possible values that can be assumed by a data point $\mathbf{z}$ is denoted by letter $\mathcal{Z}$. The labels are answers to questions or predictions that the model gives as output. Domain of all label values $\mathbf{y}$, sometimes word target is used instead of label, is denoted by $\mathcal{Y}$. Most often data points are preprocessed before they are given to the model. As result of this preprocessing, data point is transformed into a vector of features $\mathbf{x}$, extracted from the data point. Symbol $\mathcal{X}$ is assigned to a space of all the possible feature vectors.~\cite{Jung2018} Using the mathematical notation, the mapping from data points to labels can be represented by the following expression:
 
 \begin{align}\label{eq:1}
 f: \mathcal{Z} \rightarrow \mathcal{Y}
 \end{align}
 
-What is referred to as a model is usually a mapping $m:\mathcal{X} \rightarrow \mathcal{Y}$ so we can rewrite  $f$ in \ref{eq:1} as $f = f_{\mathbf{x}} \circ m$ where mapping $f_{\mathbf{x}}:\mathcal{Z} \rightarrow \mathcal{X}$ is a feature vector extractor.
+What is referred to as a model is usually a mapping $m:\mathcal{X} \rightarrow \mathcal{Y}$, so $f$ in can be rewritten \ref{eq:1} as $f = f_{\mathbf{x}} \circ m$ where mapping $f_{\mathbf{x}}:\mathcal{Z} \rightarrow \mathcal{X}$ is a feature vector extractor.
 \pagebreak
 
-The hypothesis space $\mathcal{H}$  is a set of all computationally feasible models that we are considering as candidates for the final model $m$. Hypothesis $h$, also called predictor map, from $\mathcal{H}$ is usually a mapping from feature space $\mathcal{X}$ to label space $\mathcal{Y}$.~\cite{Jung2018}
+The hypothesis space $\mathcal{H}$  is a set of all computationally feasible models that  are considered as candidates for the final model $m$. Hypothesis $h$, also called predictor map, from $\mathcal{H}$ is usually a mapping from feature space $\mathcal{X}$ to label space $\mathcal{Y}$.~\cite{Jung2018}
 
 \begin{align}\label{eq:2}
 \mathcal{H} = \{h^{(i)}:\mathcal{X} \rightarrow \mathcal{Y} : h^{(i)} \mkern3mu \text{is computationaly feasible} \}
 \end{align}
 
-In order to choose an optimal hypothesis $h$, that will be our final model $m$, from hypothesis space \ref{eq:2} we need a measure of how good the model is performing, does it produce correct predictions. The goodness of a hypothesis is evaluated using loss function $l$ \ref{eq:3}. The loss function is mapping from set-cross product of sets $\mathcal{X}$, $\mathcal{Y}$, $\mathcal{H}$ to real numbers $R$. The hypothesis $h$ that minimizes the average loss function is considered optimal and it is chosen as final model $m$ to make inferences.  
+In order to choose an optimal hypothesis $h$, that will be the final model $m$, from hypothesis space \ref{eq:2}, a measure of how good the model is performing is required. The goodness of a hypothesis is evaluated using loss function $l$ \ref{eq:3}. The loss function is mapping from set-cross product of sets $\mathcal{X}$, $\mathcal{Y}$, $\mathcal{H}$ to real numbers $R$. The hypothesis $h$ that minimizes the average loss function is considered optimal and it is chosen as final model $m$ to make inferences.  
 
 \begin{align}\label{eq:3}
 l:\mathcal{X} \times \mathcal{Y} \times \mathcal{H} \rightarrow R  
@@ -683,19 +683,20 @@ l:\mathcal{X} \times \mathcal{Y} \times \mathcal{H} \rightarrow R
 
 In \textbf{supervised} learning problems labeled data points $(\mathbf{z}^{(i)},y^{(i)}) \in \mathbb{Z} \subset \mathcal{Z} \times \mathcal{Y}$ are provided by the hypothetical teacher. These labeled data points form a numerable training set $\mathbb{Z}$. The job of the model creator is to find the best possible model $m \in H $ that is consistent on training data and generalizes well on new data points that are not in $\mathbb{Z}$. Model is said to be consistent if it achieves near 100\% accuracy over the training set. Usually, it is not possible to achieve 100\% consistency and get high prediction accuracy on new unseen data points. If the model is predicting accurately labels for data points that it has not used for training, it is said to generalize well to new data. If the model is consistent but does not generalize well to new data, it is said that it suffers from overfitting.
 
-In \textbf{unsupervised} learning, only data points are provided $\mathbf{z} \in \mathbb{Z} \subset \mathcal{Z}$. There are no labeled data points available. The job of the model is to group the data points based on some metric of similarity. Unsupervised learning can be considered as assigning hidden labels to data points. Again, we have some hypothesis spaces that group the data points and we try to find optimal hypothesis or grouping.
+In \textbf{unsupervised} learning, only data points are provided $\mathbf{z} \in \mathbb{Z} \subset \mathcal{Z}$. There are no labelled data points available. The job of the model is to group the data points based on some metric of similarity. 
+
 
 In \textbf{reinforcement} learning, the model or agent learns by receiving reinforcements from the environment. Unlike in supervised learning, there is not teacher that provides the model with correct labels. Based on the input received from the environment model must decide how it should adjust itself in order to improve the performance. AlphaGo, current artificial champion in the game of Go, is an example of applying reinforcement learning problem to solve real world problem~\cite{silver2017mastering}. No human was able to beat the AlphaGo to date. In this thesis will only examine supervised and unsupervised learning models.     
 
 Inputs and outputs of a model can be represented by \textbf{quantitative} or \textbf{qualitative} variables. Quantitative variables are measurable quantities represented by real numbers like pressure, voltage or velocity vector of a point. Note that quantitative variables are not necessary scalars. Velocity vector of a point in an open space is represented by three real number. Qualitative variables take values from a finite countable set of distinct elements. Elements of the set define categories. For that reason, qualitative variables are also called \textbf{categorical}. An example might be a set of integer number from 0 to 9 representing decimal digits. The models that have categorical labels are called classifiers and the models with quantitative labels are regression models or predictors. Models that have both types of outputs are called mixed models~\cite{Jung2018}. 
 
-For some machine learning classification problems that have by definition discreate label space the hypothesis space might contain mapping that map input to continuous variable. The final prediction is then made using a \textbf{decision function} that maps the values returned by hypothesis to labels. If $d$ is decision function we can rewrite $f$ from \ref{eq:1} as mapping composition:
+For some machine learning classification problems that have by definition discreate label space the hypothesis space might contain mapping that map input to continuous variable. The final prediction is then made using a \textbf{decision function} that maps the values returned by hypothesis to labels. If $d$ is decision function, then $f$ from \ref{eq:1} can be rewritten as mapping composition:
 
 \begin{align*}
 f = f_{\mathbf{x}} \circ m \circ d
 \end{align*}
 
-One more distinction exists between the machine learning models. They can be \textbf{parametric} or \textbf{non-parametric}. Parametric models are described using a finite set of parameters. For example, if we are predicting scalar value with the model that is represented by polynomial function then coefficients are parameters. Knowing the coefficients, we can calculate prediction.  Non-parametric models use feature vectors obtained from the data points to do prediction or classification.  
+One more distinction exists between the machine learning models. They can be \textbf{parametric} or \textbf{non-parametric}. Parametric models are described using a finite set of parameters. For example, if scalar value is predicted with the model that is represented by polynomial function, then coefficients are parameters. Knowing the coefficients, prediction can be calculated.  Non-parametric models use feature vectors obtained from the data points to do prediction or classification.  
 
 The loss function~\ref{eq:3} averaged over available feature vectors from $\mathbb{X}$ is called \textbf{empirical risk}, where $\mathbb{X}$ is defined by:
 
@@ -744,7 +745,7 @@ Feed Forward Neural Networks  & Supervised Unsupervised  & Classification Regres
 The first column of Table~\ref{tab:common_model_iot} describes the name of the model. Second column describes the type of machine learning: supervised or unsupervised. Third column describes is model used for classification or regression tasks. Note that most models can be used of both tasks. Fourth column describes, is the model parametric or non-parametric.
 %, or mixed. Mixed means that it depends on parameters and a subset of training data.
 
-For models in Table~\ref{tab:common_model_iot} we present typical feature space, label space and hypothesis space in Table~2. Second column after the name column is for input feature space. Third column describes output label space. Fourth column is a short description of model with mathematical description of its hypothesis space or decision function. Note that dimensions and elements of the spaces are picked randomly. The space of real numbers can be replaced by any other metric space. Metric space is set of elements that have a definition for a measure of distance between any two elements from the set. The hypothesis spaces presented in Table~2 might not match precisely with other formulation provided in the literature. Because neural networks are currently among the most popular machine learning methods, we talk about them in more detail in next subsection and show how the concepts presented in Machine Learning section apply to the most basic type of neural network.      
+Table~2 shows typical feature space, label space and hypothesis space for models presented in Table~\ref{tab:common_model_iot}. Second column after the name column is for input feature space. Third column describes output label space. Fourth column is a short description of model with mathematical description of its hypothesis space or decision function. Note that dimensions and elements of the spaces are picked randomly. The space of real numbers can be replaced by any other metric space. Metric space is set of elements that have a definition for a measure of distance between any two elements from the set. The hypothesis spaces presented in Table~2 might not match precisely with other formulation provided in the literature. Because neural networks are currently among the most popular machine learning methods, they are covered in more detail in next subsection. Next sections shows how the concepts presented in Machine Learning section apply to the most basic type of neural network.      
 \newpage
 %\begin{table}[h!]
 Table 2: Description of common machine learning models from Table~\ref{tab:common_model_iot}.
@@ -780,7 +781,7 @@ The feature vector $\mathbf{x}$ is assumed to be random variable and its element
 Support Vector Machine \newline Classification 
 & $\mathbf{x} \in R^d$  
 & $y \in \{-1, 1\}$
-& We provide two class classification problem as an example. This model can be extended to multiple classes using one-versus-rest formulation. The classifier is defined by:
+& Two class classification problem is provided as an example. This model can be extended to multiple classes using one-versus-rest formulation. The classifier is defined by:
 
 \begin{align*}
 h(\mathbf{x})=sgn(\sum_{i}^{n} \alpha_i k(\mathbf{x}^{i}, \mathbf{x}) + b)
@@ -921,7 +922,7 @@ Bagging
 &  
 & Bagging is also referred to as bootstrap aggregation. In bootstrap aggregation the prediction of a hypothesis map of a base model is averaged over a collection of bootstrap samples with goal of reducing the variance of estimation.~\cite{john2010elements}
 
-If there is $M$ bootstrap samples $\mathbb{X}^{*b}$ partitioning the training set $\mathbb{X}$, we fit the base model to each sample getting the optimal base hypothesis map $m^{*b}$. The final prediction is an average over base hypothesis maps~\cite{john2010elements}:
+If there is $M$ bootstrap samples $\mathbb{X}^{*b}$ partitioning the training set $\mathbb{X}$, the base model is fitted to each sample getting the optimal base hypothesis map $m^{*b}$. The final prediction is an average over base hypothesis maps~\cite{john2010elements}:
 \begin{align*}
 h(\mathbf{x})=\frac{1}{M}\sum_{b=1}^{M} m^{*b}(\mathbf{x})
 \end{align*}
@@ -943,7 +944,7 @@ The classifier function assigns a label to new input data point based on what ce
 \begin{align*}
 h(\mathbf{x})=min(\argmin_{y \in \mathcal{Y} }{||\mathbf{x}-m_y||})
 \end{align*}
-Here, $m_y$ are cluster centers. $min$ functions picks the class with minimal index. If distance between $\mathbf{x}$ and multiple centers is the same and $argmin{||x-m_k||}$ is a set that has more than $1$ element we need strategy to choose only one class, for that $min$ is used.~\cite{Jung2018}       
+Here, $m_y$ are cluster centers. $min$ functions picks the class with minimal index. If distance between $\mathbf{x}$ and multiple centers is the same and $argmin{||x-m_k||}$ is a set that has more than $1$ element then strategy is needed to choose only one class, for that $min$ is used.~\cite{Jung2018}       
 \\
 \hline
 Principal Component Analysis
@@ -1020,17 +1021,17 @@ The nonlinear operation can be any real valued function $\phi$ that takes local 
 y = \phi(v) = \phi(\mathbf{w} \cdot \mathbf{x} + b) 
 \end{align}
 
-Rosenblatt’s perceptron can be trained to classify a linearly separable pattern in a finite number of steps~\cite{haykin2009neural}. If a feature space is a subspace of $R^2$ and a label space consists of only two labels, that is we are trying to solve a binary classification problem, the pattern is linearly separable if points belonging to different classes can be separated by a line. In higher dimensional space the line is a hyperplane. 
+Rosenblatt’s perceptron can be trained to classify a linearly separable pattern in a finite number of steps~\cite{haykin2009neural}. If a feature space is a subspace of $R^2$ and a label space consists of only two labels, the pattern is linearly separable if points belonging to different classes can be separated by a line. In higher dimensional space the line is a hyperplane. 
 
-We will now present an example of a perceptron to do binary classification of a linearly separable pattern in two-dimensional feature space to highlight the basic concepts of machine learning presented in previous subsections. We assume that the features are already extracted from the raw data and feature space is $\mathcal{X} = R^2$. Usually the process of identifying how to extract features and what features are import is quite involved process but we skip it here, because it is a very domain specific problem. The label space consists of two number $\mathcal{Y} = \{-1, 1\}$, number $1$ identifies belonging to class $\mathfrak{C_{1}}$ and number $-1$ to class $\mathfrak{C_{2}}$. The model is described by a neuron with two inputs and activation function is an identity. The decision function is a signum function that outputs positive one for positive value produced by a neuron and respectively negative one for negative number. The hypothesis space is parametrized by two weights and a bias values. For that reason, we can identify hypothesis space with $R^3$.  
+Next, to highlight the basic concepts of machine learning presented in previous sections, an example of a perceptron that does binary classification of a linearly separable pattern in two-dimensional feature space is presented. It is assumed, that the features are already extracted from the raw data and feature space is $\mathcal{X} = R^2$. Usually the process of identifying how to extract features and what features are import is quite involved process but it is skipped here, because it is a very domain specific problem. The label space consists of two number $\mathcal{Y} = \{-1, 1\}$, number $1$ identifies belonging to class $\mathfrak{C_{1}}$ and number $-1$ to class $\mathfrak{C_{2}}$. The model is described by a neuron with two inputs and activation function is an identity. The decision function is a signum function that outputs positive one for positive value produced by a neuron and respectively negative one for negative number. The hypothesis space is parametrized by two weights and a bias values. For that reason, the hypothesis space can be identified with $R^3$.  
 
-At this point we have defined: feature space, label space, model, hypothesis space and a decision function. To train the model we still need a loss function, empirical risk and training data. We denote the finite, discreate training set of $N$ training samples by $\mathbb{X}$. Elements of this space are tuples $(\mathbf{x}^{(i)}, y^{(i)})$ where $ \mathbf{x}^{(i)} \in \mathcal{X}$ and $ y^{(i)} \in \mathcal{Y}$. The loss function needs to be small when model classifies input feature vector correctly, indicating the correct prediction and the value of the loss function needs to be large when the model misclassifies the feature vector. For our problem we can use the following loss function $l$:
+At this point : feature space, label space, model, hypothesis space and a decision function are defined. To train the model a loss function is needed, empirical risk and training data. Discrete training set of $N$ training samples is denoted by $\mathbb{X}$. Elements of this space are tuples $(\mathbf{x}^{(i)}, y^{(i)})$ where $ \mathbf{x}^{(i)} \in \mathcal{X}$ and $ y^{(i)} \in \mathcal{Y}$. The loss function needs to be small when model classifies input feature vector correctly, indicating the correct prediction and the value of the loss function needs to be large when the model misclassifies the feature vector. For the example problem the following loss function $l$ can be used:
 
 \begin{align}\label{eq:logistic_loss}
 l((\mathbf{x},y),h) = \ln{(1+e^{-yh(\mathbf{x})})}
 \end{align}
 
-This function is called logistic loss function. The hypothesis map $h$ is as in expression~\ref{eq:perceptron} with $\phi$ set to identity function. If we fix the value of $y$ to -1 and plot the loss function as function of $h$ we can see the function has large values when $h$ is positive indicating the error in classification and it is decreases rapidly when $h$ has negative values. If $y$ is set to unity the effect is reversed. Plots for both cases are presented in Figure~\ref{fig:logistic_loss}.
+This function is called logistic loss function. The hypothesis map $h$ is as in expression~\ref{eq:perceptron} with $\phi$ set to identity function. If the value of $y$ is fixed to -1 and loss function is plotted as function of $h$, it can can be seen the function has large values when $h$ is positive indicating the error in classification and it is decreases rapidly when $h$ has negative values. If $y$ is set to unity the effect is reversed. Plots for both cases are presented in Figure~\ref{fig:logistic_loss}.
  
 \usetikzlibrary{datavisualization}
 \usetikzlibrary{datavisualization.formats.functions}
@@ -1068,15 +1069,15 @@ info {
 \caption{Logistic loss function~\ref{eq:logistic_loss} as a function of $h$  for $y=-1$ in \textbf{(a)} and $y=1$ in \textbf{(b)}.}\label{fig:logistic_loss}
 \end{figure}
 
-The empirical risk $\mathtt{EMR}$ is an average of a loss function~\ref{eq:logistic_loss} over all samples from the training set and can be expressed by the formula~\ref{eq:preceptron_emr}. In this formula we have also expanded the mathematical expression showing explicitly dependence of $\mathtt{EMR}$ on elements of weight vector $\mathbf{w}$, bias $b$ and training data from $\mathbb{X}$.
+The empirical risk $\mathtt{EMR}$ is an average of a loss function~\ref{eq:logistic_loss} over all samples from the training set and can be expressed by the formula~\ref{eq:preceptron_emr}. In this formula the mathematical expression is expanded showing explicitly dependence of $\mathtt{EMR}$ on elements of weight vector $\mathbf{w}$, bias $b$ and training data from $\mathbb{X}$.
 
 \begin{align}\label{eq:preceptron_emr}
 \mathtt{EMR} = \frac{1}{N}\sum_{(\mathbf{x}^{(i)}, y^{(i)}) \in \mathbb{X}}{l((\mathbf{x},y),h)} = \frac{1}{N}\sum_{(\mathbf{x}^{(i)}, y^{(i)}) \in \mathbb{X}}{\ln(1+e^{-y^{(i)} ( \mathbf{w} \cdot \mathbf{x^{(i)}} + b) })} \\= \frac{1}{N}\sum_{(\mathbf{x}^{(i)}, y^{(i)}) \in \mathbb{X}}{\ln(1+e^{-y^{(i)} ( w_1 x_{1}^{(i)} + w_2 x_{2}^{(i)} + b) })}
 \end{align}
 
-Now that we have all three components of a machine learning problem we can train the model with the available training data. The loss function~\ref{eq:logistic_loss} we chose has a special property. It is differentiable with respect to hypothesis $h$. Since $h$ is also differentiable with respect to its parameters from the theory of calculus we know that composition or sum of differential function is a differentiable function. We can conclude that loss function~\ref{eq:logistic_loss} and empirical risk~\ref{eq:preceptron_emr} are differentiable functions.                  
+Now that all three components of a machine learning problem are specified the model can be trained on the available training data. The loss function~\ref{eq:logistic_loss} has a special property. It is differentiable with respect to hypothesis $h$. Since $h$ is also differentiable with respect to its parameters from the theory of calculus it is known that composition or sum of differential function is a differentiable function. Hence, the loss function~\ref{eq:logistic_loss} and empirical risk~\ref{eq:preceptron_emr} are differentiable functions.                  
 
-By minimizing the empirical risk with respect to parameters we find the best hypothesis that can be used for inference.
+By minimizing the empirical risk with respect to parameters the best hypothesis, that can be used for inference, is obtained.
 The parameters $\mathbf{w}$ and $b$ that minimize empirical risk are the ones that define the hypothesis $m$ that is used to make inferences after training.  Since $\mathtt{EMR}$ is differentiable function we can find a critical point of empirical risk function by equating is partial derivatives to zero as in equation~\ref{eq:pdv}. Critical point can be local/global minimum, maximum or saddle point. Additional investigation must be performed in order find out the type of critical point. For function that are convex, like a parabola in two-dimensional Cartesian real space opening towards positive y-direction, the critical point is minimum but not necessary global minimum.
 
 \begin{align}\label{eq:pdv}
