@@ -1,4 +1,4 @@
 /fi/ericsson/nomadiclab/intelligence_layer
-/fi/ericsson/nomadiclab/intelligence_layer/services/image_classification
-/fi/ericsson/nomadiclab/intelligence_layer/services/face_recognition
-/fi/ericsson/nomadiclab/intelligence_layer/services/health_monitoring
+/fi/ericsson/nomadiclab/intelligence_layer/models/image_classification
+/fi/ericsson/nomadiclab/intelligence_layer/models/face_recognition
+/fi/ericsson/nomadiclab/intelligence_layer/models/health_monitoring
