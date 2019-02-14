@@ -1441,7 +1441,7 @@ The PMML format was first introduced as part of data mining toolkit called Rattl
 
 To end this subsection on PMML the author presents an example of the linear regression model with input data standardization written in \texttt{scikit-learn} and converted to PMML using \texttt{sklearn2pmml} package. The python code and PMML document are provided in Listings~\ref{list:python_pmml_exmp} and~\ref{list:pmml_xml}. In order to port the model from \texttt{scikit-learn} one must use \texttt{PMMLPipeline} class that is inherited class from \texttt{scikit-learn}'s \texttt{PipeLine} class defined in \texttt{sklearn2pmml} package. The PMML pipeline is converted to PMML XML document using \texttt{skleran2pmml} function. 
 
-\lstinputlisting[language=Python,style=protobuf, caption={Python code to convert linear regression model to PMML file from~\ref{list:pmml_xml}.~\label{list:python_pmml_exmp}} ]{assets/linear_model_pmml.py}
+\lstinputlisting[language=Python,style=protobuf, caption={Python code to convert linear regression model to PMML file presented in Listing~\ref{list:pmml_xml}.~\label{list:python_pmml_exmp}} ]{assets/linear_model_pmml.py}
 
 \subsection{Intelligence Layer}
 Intelligence layer is a concept proposed in a paper~\cite{edgar2019} that came out off Ericsson research team in Finland. One central idea of intelligence layer is to decouple as much as possible the intelligence from application. Other important aspects are composition of intelligence services and life cycle management related to intelligence, such as intelligence setup and intelligence decomposition. But for this thesis, the decoupling aspects are more relevant.
