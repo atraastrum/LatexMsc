@@ -211,6 +211,10 @@
   morekeywords={xmlns,version,type}% list your attributes here
 }
 
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
 
 \DeclareMathOperator*{\argmax}{argmax} % thin space, limits underneath in displays
 \DeclareMathOperator*{\argmin}{argmin}
@@ -351,6 +355,7 @@ text must be identical to the text on the abstract page.
 %% All that is printed on paper starts here
 %%
 \begin{document}
+\counterwithin{lstlisting}{section}
 
 %% Create the coverpage
 %%
@@ -748,10 +753,10 @@ Feed Forward Neural Networks  & Supervised Unsupervised  & Classification Regres
 The first column of Table~\ref{tab:common_model_iot} describes the name of the model. Second column describes the type of machine learning: supervised or unsupervised. Third column describes is model used for classification or regression tasks. Note that most models can be used of both tasks. Fourth column describes, is the model parametric or non-parametric.
 %, or mixed. Mixed means that it depends on parameters and a subset of training data.
 
-Table~2 shows typical feature space, label space and hypothesis space for models presented in Table~\ref{tab:common_model_iot}. Second column after the name column is for input feature space. Third column describes output label space. Fourth column is a short description of model with mathematical description of its hypothesis space or decision function. Note that dimensions and elements of the spaces are picked randomly. The space of real numbers can be replaced by any other metric space. Metric space is set of elements that have a definition for a measure of distance between any two elements from the set. The hypothesis spaces presented in Table~2 might not match precisely with other formulation provided in the literature. Because neural networks are currently among the most popular machine learning methods, they are covered in more detail in next section. Next sections also shows how the concepts presented in Machine Learning section apply to the most basic type of neural network.      
+Table~2.2 shows typical feature space, label space and hypothesis space for models presented in Table~\ref{tab:common_model_iot}. Second column after the name column is for input feature space. Third column describes output label space. Fourth column is a short description of model with mathematical description of its hypothesis space or decision function. Note that dimensions and elements of the spaces are picked randomly. The space of real numbers can be replaced by any other metric space. Metric space is set of elements that have a definition for a measure of distance between any two elements from the set. The hypothesis spaces presented in Table~2.2 might not match precisely with other formulation provided in the literature. Because neural networks are currently among the most popular machine learning methods, they are covered in more detail in next section. Next sections also shows how the concepts presented in Machine Learning section apply to the most basic type of neural network.      
 \newpage
 %\begin{table}[h!]
-Table 2: Description of common machine learning models from Table~\ref{tab:common_model_iot}.
+Table 2.2: Description of common machine learning models from Table~\ref{tab:common_model_iot}.
 %\begin{center}
 \begin{longtable}{ |p{3cm}|p{1.5cm}|p{2.2cm}|p{9cm}| } 
 \hline
