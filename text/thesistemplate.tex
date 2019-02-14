@@ -482,6 +482,17 @@ ONNX       & Open Neural Network Exchange \\
 PMML       & Predictive Model Markup Language\\
 \end{tabular}
 
+\newpage
+
+\thispagestyle{empty}
+ 
+\listoffigures
+ 
+\listoftables
+
+\lstlistoflistings
+ 
+\newpage
 
 %% \clearpage is similar to \newpage, but it also flushes the floats (figures
 %% and tables).
@@ -753,12 +764,13 @@ Feed Forward Neural Networks  & Supervised Unsupervised  & Classification Regres
 The first column of Table~\ref{tab:common_model_iot} describes the name of the model. Second column describes the type of machine learning: supervised or unsupervised. Third column describes is model used for classification or regression tasks. Note that most models can be used of both tasks. Fourth column describes, is the model parametric or non-parametric.
 %, or mixed. Mixed means that it depends on parameters and a subset of training data.
 
-Table~2.2 shows typical feature space, label space and hypothesis space for models presented in Table~\ref{tab:common_model_iot}. Second column after the name column is for input feature space. Third column describes output label space. Fourth column is a short description of model with mathematical description of its hypothesis space or decision function. Note that dimensions and elements of the spaces are picked randomly. The space of real numbers can be replaced by any other metric space. Metric space is set of elements that have a definition for a measure of distance between any two elements from the set. The hypothesis spaces presented in Table~2.2 might not match precisely with other formulation provided in the literature. Because neural networks are currently among the most popular machine learning methods, they are covered in more detail in next section. Next sections also shows how the concepts presented in Machine Learning section apply to the most basic type of neural network.      
+Table~\ref{tab:common_model_iot_desc} shows typical feature space, label space and hypothesis space for models presented in Table~\ref{tab:common_model_iot}. Second column after the name column is for input feature space. Third column describes output label space. Fourth column is a short description of model with mathematical description of its hypothesis space or decision function. Note that dimensions and elements of the spaces are picked randomly. The space of real numbers can be replaced by any other metric space. Metric space is set of elements that have a definition for a measure of distance between any two elements from the set. The hypothesis spaces presented in Table~\ref{tab:common_model_iot_desc} might not match precisely with other formulation provided in the literature. Because neural networks are currently among the most popular machine learning methods, they are covered in more detail in next section. Next sections also shows how the concepts presented in Machine Learning section apply to the most basic type of neural network.      
 \newpage
 %\begin{table}[h!]
-Table 2.2: Description of common machine learning models from Table~\ref{tab:common_model_iot}.
+%Table 2.2: 
 %\begin{center}
 \begin{longtable}{ |p{3cm}|p{1.5cm}|p{2.2cm}|p{9cm}| } 
+\caption{Description of common machine learning models from Table~\ref{tab:common_model_iot}.} \label{tab:common_model_iot_desc}\\
 \hline
 \textbf{Model Name} & \textbf{Feature Space} $\mathcal{X}$ & \textbf{Label Space} $\mathcal{Y}$  & \textbf{Description and hypothesis space} \\
 \hline
@@ -1310,10 +1322,10 @@ The ONNX \texttt{proto} files have message definitions for representing machine 
 
 \begin{figure}[h!]
 \begin{subfigure}[t]{0.6\textwidth}
-\lstinputlisting[language=protobuf3,style=protobuf, basicstyle=\tiny]{assets/pb/modelproto.proto3}
+\lstinputlisting[nolol=true,language=protobuf3,style=protobuf, basicstyle=\tiny]{assets/pb/modelproto.proto3}
 \end{subfigure}
 \begin{subfigure}[t]{0.6\textwidth}
-\lstinputlisting[basicstyle=\tiny]{assets/linear_model.model}
+\lstinputlisting[nolol=true,basicstyle=\tiny]{assets/linear_model.model}
 \end{subfigure}
 
 %\caption{Left side of the figure presents a snippet from ONNX format definition. The snippet is the definition of \texttt{ModelProto} message that is the uppermost container of the ONNX model. On the right side the textual representation of serialized linear regression model is presented. The graph part of the model is stripped to save space.}\label{fig:ModelProto}
@@ -1336,7 +1348,7 @@ For the machine learning library to support ONNX it must be able to export and i
 
 \begin{table}[h!]
 \begin{center}
-\caption{Libraries that claim to support ONNX format either internally via converters.~\cite{onnx_tools}} \label{tab:onnx_libraries}
+\caption{Libraries that claim to support ONNX format either internally or via converters.~\cite{onnx_tools}} \label{tab:onnx_libraries}
 \begin{tabular}{ c c c }
  \textbf{Neural Network Libraries} & \textbf{Classical ML libraries} \\	
  Caffe2            & Scikit-Learn  \\ 
@@ -1548,7 +1560,7 @@ A \textbf{service} is a program that provides APIs to utilize the service on a b
 A \textbf{client} is a user application that uses APIs provided by a service. The client of IL service can view what intelligence services are available, query additional information about selected service and provide service with input to get back the result.  
 \item
 An \textbf{object} is identified by an object path and it belongs to a service. Service can have multiple objects that form directory tree like hierarchy. Object path looks like a file system path. For example, an object path that is responsible for IL service managment might have a path \texttt{/fi/ericsson/nomadiclab/intelligence\_layer}. And for each intelligence service an object is created forming a list of object
-\lstinputlisting[]{assets/il_service_tree.tree}
+\lstinputlisting[nolol=true]{assets/il_service_tree.tree}
 \item
 Each object has one or more \textbf{interfaces}. Interface is defined by its members and provides APIs to utilize the object. A member can be a method, a signal or a property. Interfaces are identified by reverse domain name notation. Interface for image classification  model from previous example might be \texttt{fi.ericsson.nomadiclab.IntelligenceLayer.Classifier}     
 \item
@@ -1707,8 +1719,8 @@ To test the implementation an ONNX model was needed. The place where one can fin
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-\node at (-4,0) {\lstinputlisting{assets/input_denotated.model}};
-\node at (4,0)  {\lstinputlisting{assets/input_denotated_meta.model}};
+\node at (-4,0) {\lstinputlisting[nolol=true]{assets/input_denotated.model}};
+\node at (4,0)  {\lstinputlisting[nolol=true]{assets/input_denotated_meta.model}};
 \end{tikzpicture}
 
 \caption{Textual representation of input denotation for ResNet model's input. Left side is snippet that represents input of the graph. On the right side the key-value pairs of the \texttt{ModelProto} \texttt{meta\_data} field are presented related to the \texttt{IMAGE} type.}\label{fig:input_denotation}
@@ -1738,8 +1750,8 @@ The denotation for type and dimensions of input tensor of the modified ResNet mo
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-\node at (-4,-2) {\lstinputlisting{assets/output_denotated.model}};
-\node at (3,2)  {\lstinputlisting{assets/output_denotated_meta.model}};
+\node at (-4,-2) {\lstinputlisting[nolol=true]{assets/output_denotated.model}};
+\node at (3,2)  {\lstinputlisting[nolol=true]{assets/output_denotated_meta.model}};
 \end{tikzpicture}
 
 \caption{Textual representation of output denotation for ResNet model's output. Left side is snippet that represents input of the graph. On the right side the key-value pairs in the \texttt{meta\_data} field are presented related to \texttt{CATEGORICAL\_PROBABILITY} type.}\label{fig:output_denotation}
@@ -1763,7 +1775,7 @@ Figure~\ref{fig:busctl} shows a \texttt{DoPrediction} method call of a\\ \texttt
 \caption{Snippet from command line terminal showing the use of \texttt{busctl} and the picture of cat that was used for testing.}\label{fig:busctl}
 \end{figure}
 
-D-Feet allows to list and introspect D-Bus services via the graphical user interface. It can also be used to call methods of D-Bus objects and measure the time of a method call. Figure~\ref{fig:dfeet} shows the invocation of a DoPrediction method on a Resnet-152v2 D-Bus object with the same image from the previous example. As can be seen from Figure~\ref{fig:dfeet} the method call time is $0.6$ seconds.    
+D-Feet allows to list and introspect D-Bus services via the graphical user interface. It can also be used to call methods of D-Bus objects and measure the time of a method call. Figure~\ref{fig:dfeet} shows the invocation of a DoPrediction method on a Resnet-152v2 D-Bus object with the same image from the previous example. As can be seen from Figure~\ref{fig:dfeet} the method call time is $0.6$ seconds.\newpage    
 
 The tests were executed on a commodity computing hardware. The testing machine had the following specifications:
 
@@ -1842,6 +1854,6 @@ IL service was not tested on real IoT hardware. One good candidate for testing i
 \thesisappendix
 \section{Lists of ONNX Operators\label{appendix:operatorlist}}
 In this appendix the list of ONNX operators from both standard and classical operator sets are provided. First listing has the operators from \texttt{ai.onnx} set. Second listing  shows operators from \texttt{ai.onnx.ml} set.  
-\lstinputlisting[language=protobuf3,style=protobuf]{assets/aionnx.txt}
-\lstinputlisting[language=protobuf3,style=protobuf]{assets/aionnxml.txt}
+\lstinputlisting[nolol=true,language=protobuf3,style=protobuf]{assets/aionnx.txt}
+\lstinputlisting[nolol=true,language=protobuf3,style=protobuf]{assets/aionnxml.txt}
 \end{document}
