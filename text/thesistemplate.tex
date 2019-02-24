@@ -1473,7 +1473,7 @@ In this chapter a proof of concept implementation of the intelligence layer is p
 To execute ONNX models representing neural networks the nGraph~\cite{cyphers2018intel}  software library is used. nGraph is used for converting neural networks represented with library specific format or library independent formats into nGraph's format and performing inference or training on the supported hardware backends. The hardware backend is a processing unit like GPU, CPU or some other computational hardware designed specifically for machine learning. For the prototype implementation, only inference capabilities of nGraph are used. In principle some of the nodes from \texttt{ai.onnx.ml} operator set is also possible to implement using nGraph’s native set of operators, but it is left for future work.
 
 \subsection{Base Architecture}
-Diagram in Figure~\ref{fig:il_architecture} represents the high level architecture of intelligence layer service when it starts. During the initialization process IL reads ONNX model files from the special directory, each model is represented by single file with .onnx file extension. The directory is given to the program as a command line parameter. The process depicted in the diagram happens for every model found in the directory.
+Diagram in Figure~\ref{fig:il_architecture} represents the high-level architecture of intelligence layer service when it starts. During the initialization process IL reads ONNX model files from the special directory, each model is represented by single file with .onnx file extension. The directory is given to the program as a command line parameter. The process depicted in the diagram happens for every model found in the directory.
 
 \usetikzlibrary{shapes.misc} 
 \begin{figure}[h!]
