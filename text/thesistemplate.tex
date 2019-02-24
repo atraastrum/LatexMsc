@@ -1689,7 +1689,7 @@ font=\itshape
 \path (dbusio) edge[dashed] (dbus);  
 \end{tikzpicture}
 
-\caption{Actor model based design of intelligence layer. Arrows represent message sending. Dotted lines represent creation of executor actors by model manager. Dashed lines represent access to external resource like file system and D-Bus user bus. }\label{fig:il_architecture_2}
+\caption{Actor model-based design of intelligence layer. Arrows represent message sending. Dotted lines represent creation of executor actors by model manager. Dashed lines represent access to external resource like file system and D-Bus user bus. }\label{fig:il_architecture_2}
 \end{figure}
 The diagram in Figure~\ref{fig:il_architecture_2} presents four different types of actors: \texttt{model discoverer}, \texttt{model manager}, \texttt{dbusio} and \texttt{model executor}. Exactly one instance of actor exits for discoverer, manager and dbusio. Zero or more instances of executor actor are dynamically created by model manager when users make request to execute the model via dbusio actor. After executing the nGraph model function and returning the result to dbusio, model executors actors are destroyed.         
 
