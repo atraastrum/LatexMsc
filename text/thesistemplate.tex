@@ -1800,7 +1800,7 @@ The test results proof the feasibility of using ONNX format for provisioning mac
 \end{figure}
 
 
-Preparing ML model for such cloud-oriented ML model serving application usually requires to write a program with the code to load a ML model, and code to transform input and output data. In the approach proposed in this thesis, models are complete and all the complexity for IO transformation and API serving is hidden behind intelligence layer as long as creator of a model denotates the input and output tensors correctly.
+Preparing ML model for such cloud-oriented ML model serving application usually requires writing a program with the code to load a ML model, and code to transform input and output data. In the approach proposed in this thesis, models are complete and all the complexity for IO transformation and API serving is hidden behind intelligence layer as long as creator of a model denotates the input and output tensors correctly.
 
 \subsection{Conclusions}
 It is clear that ONNX at the moment is an appropriate and popular format for representing neural network machine learning models intended for inference purposes. Many state-of-the-art deep learning frameworks support ONNX to some extent and new compilers and runtimes capable of executing ONNX NN models on variety of compute hardware, ranging from general purpose hardware like CPUs and GPUs to special purpose like Intel's Nervana~\cite{cyphers2018intel} chip designed to accelerate NN computations, emerge all the time.
