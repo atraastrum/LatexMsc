@@ -1448,7 +1448,7 @@ Intelligence layer is a concept proposed in a paper~\cite{edgar2019} that came o
 
 Currently intelligence is implemented as part of the application layer tightly integrated into application's source code. To update the intelligence usually the whole application must be updated. 
 
-Another approach is to use intelligence as a cloud service. Whenever application needs some intelligent function like image classification or text translation it makes an HTTP request. The data required to do inference is sent to HTTP endpoint. HTTP endpoints sends back the result as an HTTP reply. In this way the intelligence is external to the application but other difficulties arise:
+Another approach is to use intelligence as a cloud service. Whenever application needs some intelligent function like image classification or text translation it makes an HTTP request. The data required to do inference is sent to HTTP endpoint. HTTP endpoints sends back the result as an HTTP reply. In this way the intelligence is external to the application, but other difficulties arise:
 
 \begin{itemize}
 \item
