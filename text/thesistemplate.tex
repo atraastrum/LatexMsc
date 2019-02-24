@@ -1583,7 +1583,7 @@ In order to run inference code nGraph must be asked to allocate memory for input
 
 The D-Bus method call used by client for invoking inference execution might have a signature specifying that client must supply raw data as a parameter to the method call. The raw data is suitable, if model provides a purely computational service. Array of numbers goes in and modified arrays of numbers is returned to client. 
 
-Intelligence layer is assumed to support higher level data types. For example, input data type might be a string, representing a link to a resource. Resource might be a file system path, url or path to the device. The IL must have capability to extract raw data from the resource and write to memory allocated by nGraph for input. 
+Intelligence layer is assumed to support higher level data types. For example, input data type might be a string, representing a link to a resource. Resource might be a file system path, URL or path to the device. The IL must have capability to extract raw data from the resource and write to memory allocated by nGraph for input. 
 
 Current implementation only supports strings pointing to resources on a file system. For example, a path to a location for image that client wants to classify.      
 
