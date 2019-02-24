@@ -1588,7 +1588,7 @@ Intelligence layer is assumed to support higher level data types. For example, i
 Current implementation only supports strings pointing to resources on a file system. For example, a path to a location for image that client wants to classify.      
 
 \subsubsection{Input and Output Loaders} 
-In nGraph, computational graphs are represented by functions. Function takes as input a multidimensional array filled with numbers. The data represented by an array of numbers does not have any semantic meaning. To give semantic meaning to data ONNX has an experimental feature called denotations. A tensor in ONNX can have optional denotation represented by string literal. Intelligence layer uses this denotations to use correct loaders to extract raw data, pointed to by resources that are supplied by a calling client with a method call, and fill input memory of the nGraph's function. 
+In nGraph, computational graphs are represented by functions. Function takes as input a multidimensional array filled with numbers. The data represented by an array of numbers does not have any semantic meaning. To give semantic meaning to data ONNX has an experimental feature called denotations. A tensor in ONNX can have optional denotation represented by string literal. Intelligence layer uses this denotation to use correct loaders to extract raw data, pointed to by resources that are supplied by a calling client with a method call, and fill input memory of the nGraph's function. 
 
 After nGraph function is executed, the produced purely numerical data must be translated into a sensible reply to user. For that again, an output tensor denotation is used.        
   
