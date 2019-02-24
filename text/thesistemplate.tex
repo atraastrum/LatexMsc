@@ -1700,7 +1700,7 @@ Model discoverer scans the model repository periodically to detect changes. Mode
 \item \texttt{remove\_model} to remove model from the list of model manger.  
 \end{itemize}
 
-\texttt{new\_model} and \texttt{update\_model} messages contain all information required to execute the model: like model name, the types of input and output, nGraph function and other information related to model like documentation string. For removing the model all these information is not required and only name of model is attached to the message. 
+\texttt{new\_model} and \texttt{update\_model} messages contain all information required to execute the model: like model name, the types of input and output, nGraph function and other information related to model like documentation string. For removing the model all this information is not required and only name of model is attached to the message. 
 
 When the model manager receives a \texttt{new\_model} messages, it adds model to its list of models and sends \texttt{dbusio} actor \texttt{new\_object} message to create a D-Bus object for the model. \texttt{dbuisio} exposes the appropriate interface of the object to clients of IL service. The member invocations requested by clients are routed to model manager. These invocations are represented by \texttt{member request} in Figure~\ref{fig:il_architecture_2} but they might be implemented by multiple different messages. 
 
