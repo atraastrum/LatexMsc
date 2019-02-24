@@ -1728,7 +1728,7 @@ To test the implementation an ONNX model was needed. The place where one can fin
 
 Version 2 of the ResNet~\cite{he2016deep} image classification neural network model was selected for testing IL service prototype implementation. The model takes image as input and outputs the class of the major object in the image. The model was trained on the ImageNet dataset which contains images from 1000 classes. The largest available model Resnet-152 was used. It is approximately 220 MB in size and is most accurate among other Resnet models with fewer layers. 
 
-Image classification is an important use case for IoT. One can image camera monitoring the production line for faulty products taking a snapshop image of a product and requesting a prediction from intelligence layer service to classify the product as good or bad.        
+Image classification is an important use case for IoT. One can image camera monitoring the production line for faulty products taking a snapshot image of a product and requesting a prediction from intelligence layer service to classify the product as good or bad.        
 
 The Resnet-152 model couldn't be used as it was provided in ModelZoo. It was assumed that pre-processing and post-processing procedures are done in code by the user who imports the model in his or hers code. Model was just expecting an $1 \times 3 \times 224 \times 224$ dimensional tensor as input and produced $1000$ dimensional tensor as output.
 
