@@ -1595,7 +1595,7 @@ After nGraph function is executed, the produced purely numerical data must be tr
 Denotations are also used to assign a correct interface to D-Bus object created for a model. For example, if input tensor is denotated as image and output tensor is denotated categorical then IL service adds classification interface to the model object it creates. If denotation for input and output tensor are missing function interface is created.               
                   
 \subsubsection{Other information}
-Client might be interested in a short description of a model or what kind of input model expects. These information can be conveniently presented as properties of D-Bus model object. The implementation of IL service in this work provides almost all descriptive model information available in \texttt{ModelProto} protocol buffer message:
+Client might be interested in a short description of a model or what kind of input model expects. This information can be conveniently presented as properties of D-Bus model object. The implementation of IL service in this work provides almost all descriptive model information available in \texttt{ModelProto} protocol buffer message:
 \begin{itemize}
 \item
 Version of the ONNX IR
