@@ -1734,7 +1734,7 @@ The Resnet-152 model couldn't be used as it was provided in ModelZoo. It was ass
 
 According to Resnet model description, input tensor should contain data of a color image and output tensor scores for each class. It is assumed that user of ResNet ONNX model will know enough information about the model to load an image in some specific format, for example PNG, extract pixel values for each channel using some libraries and normalize pixel values to range $[0,1]$. 
 
-Similar assumptions were made for the output. It was users job to download the file with all the names of categories and connect result output tensor with categories. 
+Similar assumptions were made for the output. It was user's job to download the file with all the names of categories and connect result output tensor with categories. 
 
 In order to fix these issues, the author had to add computational pre- and post-processing nodes to the model. Pre-processing nodes to do data standardization were added. Post-processing node to convert scores to probabilities with softmax function was added.
 
