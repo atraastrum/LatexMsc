@@ -1559,7 +1559,7 @@ A \textbf{service} is a program that provides APIs to utilize the service on a b
 \item
 A \textbf{client} is a user application that uses APIs provided by a service. The client of IL service can view what intelligence services are available, query additional information about selected service and provide service with input to get back the result.  
 \item
-An \textbf{object} is identified by an object path and it belongs to a service. Service can have multiple objects that form directory tree like hierarchy. Object path looks like a file system path. For example, an object path that is responsible for IL service managment might have a path \texttt{/fi/ericsson/nomadiclab/intelligence\_layer}. And for each intelligence service an object is created forming a list of object
+An \textbf{object} is identified by an object path and it belongs to a service. Service can have multiple objects that form directory tree like hierarchy. Object path looks like a file system path. For example, an object path that is responsible for IL service managment might have a path \texttt{/fi/ericsson/nomadiclab/intelligence\_layer}. And for each intelligence service an object is created forming a list of objects
 \lstinputlisting[nolol=true]{assets/il_service_tree.tree}
 \item
 Each object has one or more \textbf{interfaces}. Interface is defined by its members and provides APIs to utilize the object. A member can be a method, a signal or a property. Interfaces are identified by reverse domain name notation. Interface for image classification  model from previous example might be \texttt{fi.ericsson.nomadiclab.IntelligenceLayer.Classifier}     
